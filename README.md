@@ -6,7 +6,7 @@ The VPS you plan to install your masternode on needs to have at least 1GB of RAM
 
 ## Funding your Masternode
 
-* First, we will do the initial collateral TX and send exactly 10,000 (ten thousand) SCHAIN to one of your addresses. To keep things sorted in case we setup more masternodes we will label the addresses we use.
+* First, we will do the initial collateral TX and send exactly 1,000 SCHAIN to one of your addresses. To keep things sorted in case we setup more masternodes we will label the addresses we use.
 
   - Open your SCHAIN wallet and switch to the "Receive" tab.
 
@@ -16,9 +16,9 @@ The VPS you plan to install your masternode on needs to have at least 1GB of RAM
 
   - The generated address will now be labelled as MN1 If you want to setup more masternodes just repeat the steps so you end up with several addresses for the total number of nodes you wish to setup. Example: For 10 nodes you will need 10 addresses, label them all.
 
-  - Once all addresses are created send 10,000 SCHAIN each to them. Ensure that you send exactly 10,000 SCHAIN and do it in a single transaction. You can double check where the coins are coming from by checking it via coin control usually, that's not an issue.
+  - Once all addresses are created send 1,000 SCHAIN each to them. Ensure that you send exactly 1,000 SCHAIN and do it in a single transaction. You can double check where the coins are coming from by checking it via coin control usually, that's not an issue.
 
-* As soon as all 10,000 SCHAIN transactions are done, we will wait for 15 confirmations. You can check this in your wallet or use the explorer. It should take around 30 minutes if all transaction have 15 confirmations
+* As soon as all 1,000 SCHAIN transactions are done, we will wait for 15 confirmations. You can check this in your wallet or use the explorer. It should take around 30 minutes if all transaction have 15 confirmations
 
 ## Installation & Setting up your Server
 
@@ -40,11 +40,11 @@ masternode outputs
 
 Copy both the key and output information to a text file.
 
-Close your wallet and open the Tecax Appdata folder. Its location depends on your OS.
+Close your wallet and open the Schain Appdata folder. Its location depends on your OS.
 
-* **Windows:** Press Windows+R and write %appdata% - there, open the folder Tecax.  
-* **macOS:** Press Command+Space to open Spotlight, write ~/Library/Application Support/Tecax and press Enter.  
-* **Linux:** Open ~/.tecax/
+* **Windows:** Press Windows+R and write %appdata% - there, open the folder Schain.  
+* **macOS:** Press Command+Space to open Spotlight, write ~/Library/Application Support/Schain and press Enter.  
+* **Linux:** Open ~/.schain/
 
 In your appdata folder, open masternode.conf with a text editor and add a new line in this format to the bottom of the file:
 
@@ -65,14 +65,14 @@ Restart and unlock your wallet.
 SSH (Putty on Windows, Terminal.app on macOS) to your VPS, login as root (**Please note:** It's normal that you don't see your password after typing or pasting it) and run the following command:
 
 ```bash
-bash <( curl https://raw.githubusercontent.com/tecaxcrypto/Tecax-MN-Install/master/install.sh )
+bash <( curl https://raw.githubusercontent.com/schaincrypto/Schain-MN-Install/master/install.sh )
 ```
 
 When the script asks, confirm your VPS IP Address and paste your masternode key (You can copy your key and paste into the VPS if connected with Putty by right clicking)
 
 The installer will then present you with a few options.
 
-**PLEASE NOTE**: Do not choose the advanced installation option unless you have experience with Linux and know what you are doing - if you do and something goes wrong, the Tecax team CANNOT help you, and you will have to restart the installation.
+**PLEASE NOTE**: Do not choose the advanced installation option unless you have experience with Linux and know what you are doing - if you do and something goes wrong, the Schain team CANNOT help you, and you will have to restart the installation.
 
 Follow the instructions on screen.
 
@@ -88,11 +88,11 @@ Once you see "Masternode setup completed." on screen, you are done.
 ### To check your masternode status on your VPS, navigate to /usr/local/bin and then run 
 
 ```bash
-./tecax-cli masternode status
+./schain-cli masternode status
 ```
 
 
-## For Windows setups, use this config in your masternode.conf or tecax.conf (depending on if you are using a VPS or local wallet)
+## For Windows setups, use this config in your masternode.conf or schain.conf (depending on if you are using a VPS or local wallet)
 
 ```bash
 rpcuser=<RANDOMUSERNAME>

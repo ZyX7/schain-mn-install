@@ -18,18 +18,10 @@ sudo apt-get update
 sudo apt-get install -y libdb4.8-dev libdb4.8++-dev
 sudo apt-get install libzmq3-dev
 
-cd /var
-sudo touch swap.img
-sudo chmod 600 swap.img
-sudo dd if=/dev/zero of=/var/swap.img bs=1024k count=2000
-sudo mkswap /var/swap.img
-sudo swapon /var/swap.img
-sudo free
-sudo echo "/var/swap.img none swap sw 0 0" >> /etc/fstab
 cd
 
-wget https://github.com/tecaxcrypto/Tecax/releases/download/v1.0.0/tecax-1.0.0-x86_64-linux-gnu.tar.gz
-tar -xzf tecax-1.0.0-x86_64-linux-gnu.tar.gz
+wget https://github.com/ZyX7/schain/releases/download/1.0.0/schain-1.0.0-x86_64-linux-gnu.tar.gz
+tar -xzf schain-1.0.0-x86_64-linux-gnu.tar.gz
 
 sudo apt-get install -y ufw
 sudo ufw allow ssh/tcp
@@ -40,27 +32,25 @@ sudo ufw status
 sudo ufw allow 10021/tcp
   
 cd
-mkdir -p .tecax
-echo "staking=1" >> tecax.conf
-echo "rpcuser=user"`shuf -i 100000-10000000 -n 1` >> tecax.conf
-echo "rpcpassword=pass"`shuf -i 100000-10000000 -n 1` >> tecax.conf
-echo "rpcallowip=127.0.0.1" >> tecax.conf
-echo "listen=1" >> tecax.conf
-echo "server=1" >> tecax.conf
-echo "daemon=1" >> tecax.conf
-echo "logtimestamps=1" >> tecax.conf
-echo "maxconnections=256" >> tecax.conf
-echo "addnode=104.238.138.11" >> tecax.conf
-echo "addnode=108.61.119.248" >> tecax.conf
-echo "port=10021" >> tecax.conf
-mv tecax.conf .tecax
+mkdir -p .schain
+echo "staking=1" >> schain.conf
+echo "rpcuser=user"`shuf -i 100000-10000000 -n 1` >> schain.conf
+echo "rpcpassword=pass"`shuf -i 100000-10000000 -n 1` >> schain.conf
+echo "rpcallowip=127.0.0.1" >> schain.conf
+echo "listen=1" >> schain.conf
+echo "server=1" >> schain.conf
+echo "daemon=1" >> schain.conf
+echo "logtimestamps=1" >> schain.conf
+echo "maxconnections=256" >> schain.conf
+echo "port=10021" >> schain.conf
+mv schain.conf .schain
 
   
 cd
-./tecaxd -daemon
+./schaind -daemon
 sleep 30
-./tecax-cli getinfo
+./schain-cli getinfo
 sleep 5
-./tecax-cli getnewaddress
+./schain-cli getnewaddress
 echo "Use the address above to send your SCHAIN coins to this server"
 

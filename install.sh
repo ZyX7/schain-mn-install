@@ -82,9 +82,9 @@ set -- "${POSITIONAL[@]}" # restore positional parameters
 
 clear
 
-# Set these to change the version of tecax to install
-TARBALLURL="https://github.com/tecaxcrypto/Tecax/releases/download/v1.0.0/tecax-1.0.0-x86_64-linux-gnu.tar.gz"
-TARBALLNAME="tecax-1.0.0-x86_64-linux-gnu.tar.gz"
+# Set these to change the version of schain to install
+TARBALLURL="https://github.com/ZyX7/schain/releases/download/1.0.0/schain-1.0.0-x86_64-linux-gnu.tar.gz"
+TARBALLNAME="schain-1.0.0-x86_64-linux-gnu.tar.gz"
 BOOTSTRAPURL=""
 BOOTSTRAPARCHIVE=""
 BWKVERSION="1.0.0"
@@ -160,13 +160,13 @@ fi
 
 if [[ ("$ADVANCED" == "y" || "$ADVANCED" == "Y") ]]; then
 
-USER=tecax
+USER=schain
 
 adduser $USER --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password > /dev/null
 
 INSTALLERUSED="#Used Advanced Install"
 
-echo "" && echo 'Added user "tecax"' && echo ""
+echo "" && echo 'Added user "schain"' && echo ""
 sleep 1
 
 else
@@ -236,22 +236,22 @@ fi
 wget $TARBALLURL
 tar -xzvf $TARBALLNAME 
 rm $TARBALLNAME
-mv ./tecaxd /usr/local/bin
-mv ./tecax-cli /usr/local/bin
-mv ./tecax-tx /usr/local/bin
+mv ./schaind /usr/local/bin
+mv ./schain-cli /usr/local/bin
+mv ./schain-tx /usr/local/bin
 rm -rf $TARBALLNAME
 
-# Create .tecax directory
-mkdir $USERHOME/.tecax
+# Create .schain directory
+mkdir $USERHOME/.schain
 
 # Install bootstrap file
 if [[ ("$BOOTSTRAP" == "y" || "$BOOTSTRAP" == "Y" || "$BOOTSTRAP" == "") ]]; then
   echo "skipping"
 fi
 
-# Create tecax.conf
-touch $USERHOME/.tecax/tecax.conf
-cat > $USERHOME/.tecax/tecax.conf << EOL
+# Create schain.conf
+touch $USERHOME/.schain/schain.conf
+cat > $USERHOME/.schain/schain.conf << EOL
 ${INSTALLERUSED}
 rpcuser=${RPCUSER}
 rpcpassword=${RPCPASSWORD}
@@ -266,30 +266,28 @@ bind=${IP}:10021
 masternodeaddr=${IP}
 masternodeprivkey=${KEY}
 masternode=1
-addnode=108.61.119.248
-addnode=104.238.138.11
 EOL
-chmod 0600 $USERHOME/.tecax/tecax.conf
-chown -R $USER:$USER $USERHOME/.tecax
+chmod 0600 $USERHOME/.schain/schain.conf
+chown -R $USER:$USER $USERHOME/.schain
 
 sleep 1
 
-cat > /etc/systemd/system/tecax.service << EOL
+cat > /etc/systemd/system/schain.service << EOL
 [Unit]
-Description=tecaxd
+Description=schaind
 After=network.target
 [Service]
 Type=forking
 User=${USER}
 WorkingDirectory=${USERHOME}
-ExecStart=/usr/local/bin/tecaxd -conf=${USERHOME}/.tecax/tecax.conf -datadir=${USERHOME}/.tecax
-ExecStop=/usr/local/bin/tecax-cli -conf=${USERHOME}/.tecax/tecax.conf -datadir=${USERHOME}/.tecax stop
+ExecStart=/usr/local/bin/schaind -conf=${USERHOME}/.schain/schain.conf -datadir=${USERHOME}/.schain
+ExecStop=/usr/local/bin/schain-cli -conf=${USERHOME}/.schain/schain.conf -datadir=${USERHOME}/.schain stop
 Restart=on-abort
 [Install]
 WantedBy=multi-user.target
 EOL
-sudo systemctl enable tecax.service
-sudo systemctl start tecax.service
+sudo systemctl enable schain.service
+sudo systemctl start schain.service
 
 clear
 

@@ -107,8 +107,6 @@ externalip=<IPADDRESS>
 masternodeaddr=<IPADDRESS>:10021
 masternodeprivkey=<MASTERNODE GENKEY>
 masternode=1
-addnode=104.238.138.11
-addnode=108.61.119.248
 ```
 
 
